@@ -32,7 +32,7 @@ def main(args):
 
     # Select model and parameters. Both are inline with the baseline parameters.
     if 'M' in args.model:
-        args.epochs = 400
+        args.epochs = 1 # 400
         args.weight_decay = 1e-4
         args.optim = 'adam'
         args.lr = 1e-3  # 1e-3 for RR+ variants, 1e-2 for R variants.
@@ -96,7 +96,7 @@ def main(args):
     # Train the model
     if not args.pretrained:
         # Create logger
-        # sys.stdout = Logger(args)
+        sys.stdout = Logger(args)
         # Print arguments (Sanity check)
         print(args)
         # Train the model
@@ -114,7 +114,7 @@ def model_directory(args):
     comment = "model_{}_optim_{}_lr_{}_wd_{}_seed_{}/".format(args.model, args.optim, args.lr, args.weight_decay, args.seed)
     if args.extra_comment is not "": comment = comment[:-1] + "_" + args.extra_comment + comment[-1]
     # Create directory
-    modeldir = "./saved/" + comment
+    modeldir = "./saved_new/" + comment
     os.makedirs(modeldir, exist_ok=True)
     # Add the path to the args
     args.path = modeldir + "model.pth"

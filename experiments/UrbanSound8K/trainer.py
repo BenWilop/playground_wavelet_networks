@@ -104,7 +104,7 @@ def _train(model, epochs, criterion, optimizer, dataloader, device, lr_scheduler
                 if total % 256 == 0:
                     print(running_loss / total)
 
-            # statistics of the epoch
+            # Statistics of the epoch
             epoch_loss = running_loss / total
             epoch_acc = running_corrects / total
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(phase, epoch_loss, epoch_acc))
