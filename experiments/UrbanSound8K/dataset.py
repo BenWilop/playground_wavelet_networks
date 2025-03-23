@@ -5,6 +5,7 @@ import torch.utils.data
 import torchaudio
 # built-in
 import pandas as pd
+import os
 
 
 class UrbanSoundDataset(torch.utils.data.Dataset):
@@ -35,10 +36,11 @@ class UrbanSoundDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, index):
         # format the file path and load the file
-        path = self.file_path + "fold" + str(self.folders[index]) + "/" + self.file_names[index]
+        path = os.path.join(self.file_path, "fold" + str(self.folders[index]), self.file_names[index])
         sample_freq = self.sample_freq
 
-        soundData, sr = torchaudio.load(path, normalization=True)
+        soundData, sr = torchaudio.load(path)
+        print("Max value of sound: ", soundData.abs().max())
         soundData = torch.mean(soundData, dim=0, keepdim=True)  # To mono by averaging over the channel axis
         soundData = torchaudio.transforms.Resample(orig_freq=sr, new_freq=sample_freq)(soundData)  # Resample
 
@@ -60,8 +62,8 @@ class UrbanSoundDataset(torch.utils.data.Dataset):
 
 def get_dataset(batch_size, num_workers):
     # Load dataset
-    csv_path = 'data/metadata/UrbanSound8K.csv'
-    file_path = 'data/audio/'
+    csv_path = '/homes/55/bwilop/gdl/wavelet_networks/wavelet_networks/data/UrbanSound8K/metadata/UrbanSound8K.csv'
+    file_path = '/homes/55/bwilop/gdl/wavelet_networks/wavelet_networks/data/UrbanSound8K/audio'
 
     train_set = UrbanSoundDataset(csv_path, file_path, [1, 2, 3, 4, 5, 6, 7, 8, 9])
     val_set = UrbanSoundDataset(csv_path, file_path, [10])

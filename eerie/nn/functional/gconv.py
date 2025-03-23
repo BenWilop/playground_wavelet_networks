@@ -1,5 +1,5 @@
 import torch
-from eerie.nn.functional.bconv import bconv
+# from eerie.nn.functional.bconv import bconv
 from eerie.bsplines.utils import B_supp
 from eerie.bsplines.b_1d import B
 import eerie

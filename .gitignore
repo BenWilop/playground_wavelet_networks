@@ -10,3 +10,5 @@ eerie/nn/functional/sconv.py
 
 experiments/UrbanSound8K/data/*
 experiments/MagnaTagATune/data/
+
+wavelet_networks_venv/*
