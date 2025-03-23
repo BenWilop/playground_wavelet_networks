@@ -40,7 +40,6 @@ class UrbanSoundDataset(torch.utils.data.Dataset):
         sample_freq = self.sample_freq
 
         soundData, sr = torchaudio.load(path)
-        print("Max value of sound: ", soundData.abs().max())
         soundData = torch.mean(soundData, dim=0, keepdim=True)  # To mono by averaging over the channel axis
         soundData = torchaudio.transforms.Resample(orig_freq=sr, new_freq=sample_freq)(soundData)  # Resample
 

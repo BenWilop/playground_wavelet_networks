@@ -1,4 +1,5 @@
 import torch
+from tqdm import tqdm
 
 
 def test(model, test_loader, device):
@@ -14,7 +15,7 @@ def test(model, test_loader, device):
 
     with torch.no_grad():
         # Iterate through data
-        for inputs, labels in test_loader:
+        for inputs, labels in tqdm(test_loader, desc="Testing", leave=False):
             inputs = inputs.to(device)
             labels = labels.to(device)
 

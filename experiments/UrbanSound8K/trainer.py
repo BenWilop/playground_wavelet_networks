@@ -101,6 +101,9 @@ def _train(model, epochs, criterion, optimizer, dataloader, device, lr_scheduler
                 running_corrects += (preds == labels).sum().item()
                 total += labels.size(0)
 
+                if total % 256 == 0:
+                    print(running_loss / total)
+
             # statistics of the epoch
             epoch_loss = running_loss / total
             epoch_acc = running_corrects / total
