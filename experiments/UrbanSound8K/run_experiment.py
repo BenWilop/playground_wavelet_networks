@@ -9,6 +9,7 @@ import copy
 import numpy as np
 import random
 import os
+import datetime
 # models
 import experiments.UrbanSound8K.models as models
 import experiments.UrbanSound8K.parser as parser
@@ -32,7 +33,7 @@ def main(args):
 
     # Select model and parameters. Both are inline with the baseline parameters.
     if 'M' in args.model:
-        args.epochs = 1 # 400
+        args.epochs = 200
         args.weight_decay = 1e-4
         args.optim = 'adam'
         args.lr = 1e-3  # 1e-3 for RR+ variants, 1e-2 for R variants.
@@ -112,12 +113,14 @@ def main(args):
 def model_directory(args):
     # Create name from arguments
     comment = "model_{}_optim_{}_lr_{}_wd_{}_seed_{}/".format(args.model, args.optim, args.lr, args.weight_decay, args.seed)
+    args.extra_comment = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     if args.extra_comment is not "": comment = comment[:-1] + "_" + args.extra_comment + comment[-1]
     # Create directory
     modeldir = "./saved_new/" + comment
     os.makedirs(modeldir, exist_ok=True)
     # Add the path to the args
     args.path = modeldir + "model.pth"
+    print(args.path)
 
 
 if __name__ == '__main__':

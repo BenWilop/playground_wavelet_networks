@@ -351,7 +351,7 @@ class RRPlus_M3(torch.nn.Module):
         n_channels = 256
         n_classes = 10
 
-        # # G-conv approach
+        # G-conv approach
         group = eerie.Group('R1R+')
 
         # For first layer:
